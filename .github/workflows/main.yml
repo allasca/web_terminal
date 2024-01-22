@@ -1,34 +1,33 @@
-name: Flutter Web
+name: GH-Pages
 on:
   push:
     branches:
       - main
+
 jobs:
   build:
-    name: Build Web
-    env:
-      my_secret: ${{secrets.key_action}}
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secret.key_action }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
-      #  with:
-       #   channel: 'dev'
-     # - run: flutter config --enable-web
-      - run: flutter pub get
-      - run: flutter build web --release
-      - run: |
-          cd build/web
+        with:
+          channel: stable
+      - name: Install Dependencies
+        run: flutter pub get
+        working-directory: ./example
+      - name: Build Web
+        run: flutter build web --release --source-maps
+        working-directory: ./example
+      - name: Deploy
+        run: |
+          cd example/build/web
           git init
-          # type configurations: your user.email and user.name followed lines 
-          # git config --global user.email y.allasca@gmail.com
-          # git config --global user.name allasca
-          git config --global user.email y.allasca@gmail.com
-          git config --global user.name allasca
-          git status
-          # change this remote url for examle your remote url is https://github.com/onatcipli/flutter_web.git then the following:
-          git remote add origin https://${{secrets.key_action}}@github.com/allasca/web_terminal.git
+          git config user.name "allasca"
+          git config user.email "y.allasca@gmail.com"
+          git remote add secure-origin https://username:${secret.key_action}@github.com/web_terminal.git
           git checkout -b gh-pages
-          git add --all
-          git commit -m "update"
-          git push origin gh-pages -f
+          git add .
+          git commit -m "Deployed Github Pages"
+          git push --force secure-origin gh-pages
