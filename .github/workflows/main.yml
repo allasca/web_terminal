@@ -18,7 +18,7 @@ jobs:
         run: flutter pub get
         #working-directory: ./example
       - name: Build Web
-        run: flutter build web --release --source-maps
+        run: flutter build web --base-href "/web_terminal/"
         #working-directory: ./example
       - name: Deploy
         run: |
