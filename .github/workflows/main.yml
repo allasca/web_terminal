@@ -2,12 +2,12 @@ name: Flutter Web
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     name: Build Web
     env:
-      my_secret: ${{secrets.commit_secret}}
+      my_secret: ${{secrets.key_action}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
