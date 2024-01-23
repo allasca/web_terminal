@@ -15,16 +15,20 @@ class HomeUI extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(6.0),
           child: Obx(
-            () => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ...List.generate(
-                  c.responseText.length,
-                  (int i) => c.responseText[i],
-                ).toList(),
-                const SizedBox(height: 3),
-                const InputWidget(),
-              ],
+            () => SingleChildScrollView(
+              controller: c.scrollController,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ...List.generate(
+                    c.responseText.length,
+                    (int i) => c.responseText[i],
+                  ).toList(),
+                  const SizedBox(height: 3),
+                  const InputWidget(),
+                  const SizedBox(height: 30),
+                ],
+              ),
             ),
           ),
         ),

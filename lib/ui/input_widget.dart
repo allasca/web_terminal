@@ -30,10 +30,9 @@ class InputWidget extends StatelessWidget {
               color: Colors.white,
             ),
             decoration: const InputDecoration(
-              isCollapsed: true,
               isDense: true,
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom: 6),
+              contentPadding: EdgeInsets.only(bottom: 0, top: 0),
             ),
           ),
         ),
